@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
+import * as passport from 'passport';
 import { TypeormStore } from 'connect-typeorm';
 import { getRepository } from 'typeorm';
-import { Session } from './typeorm/entities/Session';
+import { Session } from './utils/typeorm/entities/Session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +25,8 @@ async function bootstrap() {
     }),
   );
 
+  app.use(passport.initialize());
+  app.use(passport.session());
   try {
     await app.listen(process.env.PORT);
     console.log(`Running on PORT ${process.env.PORT}.`);
