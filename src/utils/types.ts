@@ -4,4 +4,11 @@ export type UserDetails = {
   discordId: string;
 };
 
+export type UpdateUserDetails = {
+  accessToken: string;
+  refreshToken: string;
+  username: string;
+  discriminator: string;
+};
+
 export type Done = (err: Error, user: User) => void;

@@ -10,7 +10,7 @@ export class AuthService implements IAuthService {
     @Inject(SERVICES.USER) private readonly userService: IUserService,
   ) {}
   async validateUser(details: UserDetails) {
-    const user = this.userService.findUser(details.discordId);
+    const user = await this.userService.findUser(details.discordId);
     return user || this.userService.createUser(details);
   }
 }
