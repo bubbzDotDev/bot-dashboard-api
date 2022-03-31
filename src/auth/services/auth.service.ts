@@ -9,8 +9,13 @@ export class AuthService implements IAuthService {
   constructor(
     @Inject(SERVICES.USER) private readonly userService: IUserService,
   ) {}
+
   async validateUser(details: UserDetails) {
     const user = await this.userService.findUser(details.discordId);
-    return user || this.userService.createUser(details);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { discordId, ...updatedDetails } = details;
+    return user
+      ? this.userService.updateUser(user, updatedDetails)
+      : this.userService.createUser(details);
   }
 }
