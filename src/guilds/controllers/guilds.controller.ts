@@ -17,7 +17,7 @@ export class GuildsController {
     @Inject(SERVICES.GUILDS) private readonly guildsService: IGuildsService,
   ) {}
 
-  @Get('config/:guildId')
+  @Get(':guildId/config')
   async getGuildConfig(@Param('guildId') guildId: string) {
     const guildConfig = await this.guildsService.getGuildConfig(guildId);
     if (!guildConfig)
@@ -34,5 +34,13 @@ export class GuildsController {
     @Body('prefix') prefix: string,
   ) {
     return this.guildsService.updateGuildPrefix(guildId, prefix);
+  }
+
+  @Post(':guildId/config/welcome')
+  async updateWelcomeChannel(
+    @Param('guildId') guildId: string,
+    @Body('welcomeChannelId') welcomeChannelId: string,
+  ) {
+    return this.guildsService.updateWelcomeChannel(guildId, welcomeChannelId);
   }
 }

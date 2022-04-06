@@ -9,12 +9,15 @@ export class DiscordService implements IDiscordService {
     @Inject(SERVICES.DISCORD_HTTP)
     private readonly discordHttpService: IDiscordHttpService,
   ) {}
+
   getBotGuilds() {
     return this.discordHttpService.fetchBotGuilds();
   }
+
   getUserGuilds(accessToken: string) {
     return this.discordHttpService.fetchUserGuilds(accessToken);
   }
+
   async getMutualGuilds(accessToken: string) {
     const { data: userGuilds } = await this.getUserGuilds(accessToken);
     const { data: botGuilds } = await this.getBotGuilds();
@@ -25,5 +28,9 @@ export class DiscordService implements IDiscordService {
       botGuilds.some((botGuild) => botGuild.id === guild.id),
     );
     return mutualGuilds;
+  }
+
+  getGuildChannels(guildId: string) {
+    return this.discordHttpService.fetchGuildChannels(guildId);
   }
 }
