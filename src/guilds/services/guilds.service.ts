@@ -25,13 +25,18 @@ export class GuildsService implements IGuildsService {
     });
   }
 
-  async updateWelcomeChannel(guildId: string, welcomeChannelId: string) {
+  async updateWelcome(
+    guildId: string,
+    welcomeChannelId: string,
+    welcomeMessage: string,
+  ) {
     const guildConfig = await this.getGuildConfig(guildId);
     if (!guildConfig)
       throw new HttpException('Guild config not found', HttpStatus.BAD_REQUEST);
     return this.guildConfigRepository.save({
       ...guildConfig,
       welcomeChannelId,
+      welcomeMessage,
     });
   }
 }

@@ -41,13 +41,15 @@ export class GuildsController {
   }
 
   @Post(':guildId/config/welcome')
-  async updateWelcomeChannel(
+  async updateWelcome(
     @Param('guildId') guildId: string,
     @Body('welcomeChannelId') welcomeChannelId: string,
+    @Body('welcomeMessage') welcomeMessage: string,
   ) {
-    const config = await this.guildsService.updateWelcomeChannel(
+    const config = await this.guildsService.updateWelcome(
       guildId,
       welcomeChannelId,
+      welcomeMessage,
     );
     this.wsHandler.guildConfigUpdate(config);
     return config;
