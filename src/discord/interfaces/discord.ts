@@ -4,7 +4,7 @@ import { PartialGuildChannel } from 'src/utils/types';
 export interface IDiscordService {
   getBotGuilds();
   getUserGuilds(accessToken: string);
-  getMutualGuilds(accessToken: string);
+  getGuilds(accessToken: string);
   getGuildChannels(
     guildId: string,
   ): Promise<AxiosResponse<PartialGuildChannel[]>>;

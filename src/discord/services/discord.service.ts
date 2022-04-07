@@ -18,7 +18,7 @@ export class DiscordService implements IDiscordService {
     return this.discordHttpService.fetchUserGuilds(accessToken);
   }
 
-  async getMutualGuilds(accessToken: string) {
+  async getGuilds(accessToken: string) {
     const { data: userGuilds } = await this.getUserGuilds(accessToken);
     const { data: botGuilds } = await this.getBotGuilds();
     const adminUserGuilds = userGuilds.filter(
@@ -27,7 +27,13 @@ export class DiscordService implements IDiscordService {
     const mutualGuilds = adminUserGuilds.filter((guild) =>
       botGuilds.some((botGuild) => botGuild.id === guild.id),
     );
-    return mutualGuilds;
+    const availableGuilds = adminUserGuilds.filter(
+      (guild) => !botGuilds.some((botGuild) => botGuild.id === guild.id),
+    );
+    return {
+      mutualGuilds,
+      availableGuilds,
+    };
   }
 
   getGuildChannels(guildId: string) {

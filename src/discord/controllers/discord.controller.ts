@@ -11,8 +11,8 @@ export class DiscordController {
   ) {}
 
   @Get('guilds')
-  getMutualGuilds(@AuthUser() user: User) {
-    return this.discordService.getMutualGuilds(user.accessToken);
+  getGuilds(@AuthUser() user: User) {
+    return this.discordService.getGuilds(user.accessToken);
   }
 
   @Get('guilds/:guildId/channels')
