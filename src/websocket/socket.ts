@@ -20,4 +20,8 @@ export class WebSocketHandler {
   guildConfigUpdate(config: GuildConfiguration) {
     this.ws.emit('guildConfigUpdate', config);
   }
+
+  announce(payload: object) {
+    this.ws.emit('announce', payload);
+  }
 }

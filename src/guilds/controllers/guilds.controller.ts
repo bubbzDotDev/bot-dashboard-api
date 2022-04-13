@@ -54,4 +54,9 @@ export class GuildsController {
     this.wsHandler.guildConfigUpdate(config);
     return config;
   }
+
+  @Post(':guildId/announce')
+  sendAnnouncement(@Body('payload') payload: object) {
+    this.wsHandler.announce(payload);
+  }
 }
