@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { ROUTES } from 'src/utils/constants';
 import { AuthUser } from 'src/utils/decorators';
 import { User } from 'src/utils/typeorm/entities/User';
@@ -23,6 +23,9 @@ export class AuthController {
     return user;
   }
 
-  @Post('logout')
-  logout() {}
+  @Get('logout')
+  @UseGuards(AuthenticatedGuard)
+  logout(@Req() req: Request) {
+    req.logout();
+  }
 }

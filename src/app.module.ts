@@ -22,7 +22,7 @@ import { WebSocketModule } from './websocket/websocket.module';
       username: process.env.MYSQL_DB_USERNAME,
       password: process.env.MYSQL_DB_PASSWORD,
       database: process.env.MYSQL_DB_DATABASE,
-      synchronize: true, // true in development; false in production
+      synchronize: JSON.parse(process.env.MYSQL_DB_SYNCHRONIZE), // true in development; false in production
       entities: entities,
     }),
     AuthModule,
