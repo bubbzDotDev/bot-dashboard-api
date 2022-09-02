@@ -27,7 +27,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ['https://www.announcementbot.live'],
+    origin: [process.env.BOT_FRONTEND_HOST],
     credentials: true,
   });
   app.use(passport.initialize());
