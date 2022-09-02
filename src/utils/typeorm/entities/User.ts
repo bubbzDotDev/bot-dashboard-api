@@ -9,10 +9,10 @@ export class User {
   discordId: string;
 
   @Column({ name: 'access_token' })
-  accessToken: string; // encrypt it before production
+  accessToken: string;
 
   @Column({ name: 'refresh_token' })
-  refreshToken: string; // encrypt it before production
+  refreshToken: string;
 
   @Column()
   username: string;
