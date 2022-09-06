@@ -1,7 +1,7 @@
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 const algorithm = 'aes-256-cbc';
 const iv = randomBytes(16);
-const key = process.env.KEY;
+const key = randomBytes(32);
 
 export function encryptText(text) {
   const cipher = createCipheriv(algorithm, Buffer.from(key), iv);
