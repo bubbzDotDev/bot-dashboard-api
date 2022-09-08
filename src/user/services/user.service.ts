@@ -11,13 +11,13 @@ export class UserService implements IUserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
-  createUser(details: UserDetails) {
+  async createUser(details: UserDetails) {
     const encryptedDetails = {} as UserDetails;
     encryptedDetails.discordId = details.discordId;
     encryptedDetails.accessToken = details.accessToken;
-    encryptedDetails.refreshToken = encryptText(details.refreshToken);
-    encryptedDetails.username = encryptText(details.username);
-    encryptedDetails.discriminator = encryptText(details.discriminator);
+    encryptedDetails.refreshToken = await encryptText(details.refreshToken);
+    encryptedDetails.username = await encryptText(details.username);
+    encryptedDetails.discriminator = await encryptText(details.discriminator);
     const newUser = this.userRepository.create(encryptedDetails);
     return this.userRepository.save(newUser);
   }
@@ -26,20 +26,24 @@ export class UserService implements IUserService {
     return this.userRepository.findOne({ discordId });
   }
 
-  updateUser(user: User, details: UpdateUserDetails) {
+  async updateUser(user: User, details: UpdateUserDetails) {
     const encryptedDetails = {} as User;
     encryptedDetails.id = user.id;
     encryptedDetails.discordId = user.discordId;
     encryptedDetails.accessToken = user.accessToken;
-    encryptedDetails.refreshToken = encryptText(user.refreshToken);
-    encryptedDetails.username = encryptText(user.username);
-    encryptedDetails.discriminator = encryptText(user.discriminator);
+    encryptedDetails.refreshToken = await encryptText(user.refreshToken);
+    encryptedDetails.username = await encryptText(user.username);
+    encryptedDetails.discriminator = await encryptText(user.discriminator);
 
     const encryptedUpdatedDetails = {} as UpdateUserDetails;
     encryptedUpdatedDetails.accessToken = details.accessToken;
-    encryptedUpdatedDetails.refreshToken = encryptText(details.refreshToken);
-    encryptedUpdatedDetails.username = encryptText(details.username);
-    encryptedUpdatedDetails.discriminator = encryptText(details.discriminator);
+    encryptedUpdatedDetails.refreshToken = await encryptText(
+      details.refreshToken,
+    );
+    encryptedUpdatedDetails.username = await encryptText(details.username);
+    encryptedUpdatedDetails.discriminator = await encryptText(
+      details.discriminator,
+    );
 
     return this.userRepository.save({
       ...encryptedDetails,

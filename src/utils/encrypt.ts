@@ -1,25 +1,27 @@
-import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
-const algorithm = 'aes-256-cbc';
-const iv = randomBytes(16);
-const key = randomBytes(32);
+import { createCipheriv, createDecipheriv, randomBytes, scrypt } from 'crypto';
+import { promisify } from 'util';
+const algorithm = 'aes-256-ctr';
+const password = `${process.env.PASSWORD}`;
 
-export function encryptText(text) {
-  const cipher = createCipheriv(algorithm, Buffer.from(key), iv);
-  const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+export async function encryptText(text) {
+  const iv = randomBytes(16);
+  const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
+  const cipher = createCipheriv(algorithm, key, iv);
+  const encryptedText = Buffer.concat([cipher.update(text), cipher.final()]);
   return JSON.stringify({
     iv: iv.toString('hex'),
-    encryptedData: encrypted.toString('hex'),
+    encryptedData: encryptedText.toString('hex'),
   });
 }
 
-export function decryptText(text) {
+export async function decryptText(text) {
+  const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
   const parsedText = JSON.parse(text);
   const iv = Buffer.from(parsedText.iv, 'hex');
+  const decipher = createDecipheriv(algorithm, key, iv);
   const encryptedText = Buffer.from(parsedText.encryptedData, 'hex');
-  const decipher = createDecipheriv(algorithm, Buffer.from(key), iv);
-  const decrypted = Buffer.concat([
+  return Buffer.concat([
     decipher.update(encryptedText),
     decipher.final(),
-  ]);
-  return decrypted.toString();
+  ]).toString();
 }
