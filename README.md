@@ -28,9 +28,13 @@ MYSQL_DB_PORT=
 MYSQL_DB_USERNAME=
 MYSQL_DB_PASSWORD=
 MYSQL_DB_DATABASE=
+MYSQL_DB_SYNCHRONIZE=  #true in development; false in production
 
 # Frontend
 BOT_FRONTEND_HOST=
+
+#Encryption
+PASSWORD=
 ```
 ## Running the app
 
