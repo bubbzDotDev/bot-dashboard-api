@@ -23,7 +23,7 @@ export class UserService implements IUserService {
   }
 
   findUser(discordId: string) {
-    return this.userRepository.findOne({ discordId });
+    return this.userRepository.findOne({ where: { discordId } });
   }
 
   async updateUser(user: User, details: UpdateUserDetails) {

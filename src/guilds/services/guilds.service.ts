@@ -12,7 +12,7 @@ export class GuildsService implements IGuildsService {
   ) {}
 
   getGuildConfig(guildId: string) {
-    return this.guildConfigRepository.findOne({ guildId });
+    return this.guildConfigRepository.findOne({ where: { guildId } });
   }
 
   async updateGuildPrefix(guildId: string, prefix: string) {

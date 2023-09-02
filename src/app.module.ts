@@ -12,18 +12,22 @@ import { WebSocketModule } from './websocket/websocket.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.development',
+      envFilePath: '.env',
     }),
     PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQL_DB_HOST,
-      port: +process.env.MYSQL_DB_PORT, // + converts string to number
+      port: +process.env.MYSQL_DB_PORT,
       username: process.env.MYSQL_DB_USERNAME,
       password: process.env.MYSQL_DB_PASSWORD,
       database: process.env.MYSQL_DB_DATABASE,
-      synchronize: JSON.parse(process.env.MYSQL_DB_SYNCHRONIZE), // true in development; false in production
+      synchronize: JSON.parse(process.env.MYSQL_DB_SYNCHRONIZE),
       entities: entities,
+      ssl: {
+        rejectUnauthorized: true,
+      },
+      dropSchema: true,
     }),
     AuthModule,
     UserModule,

@@ -33,7 +33,7 @@
     "connect-typeorm": "^2.0.0",
     "express-session": "^1.17.3",
     "mysql2": "^3.6.0",
-    "passport": "^0.6.0",
+    "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.1",
