@@ -3,7 +3,7 @@ import { promisify } from 'util';
 const algorithm = 'aes-256-ctr';
 const password = `${process.env.PASSWORD}`;
 
-export async function encryptText(text) {
+export async function encryptText(text: string) {
   const iv = randomBytes(16);
   const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
   const cipher = createCipheriv(algorithm, key, iv);
@@ -14,7 +14,7 @@ export async function encryptText(text) {
   });
 }
 
-export async function decryptText(text) {
+export async function decryptText(text: string) {
   const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
   const parsedText = JSON.parse(text);
   const iv = Buffer.from(parsedText.iv, 'hex');

@@ -9,12 +9,15 @@ import { AuthenticatedGuard, DiscordAuthGuard } from '../utils/Guards';
 export class AuthController {
   @Get('login')
   @UseGuards(DiscordAuthGuard)
-  login() {}
+  login() {
+    return { status: 'ok' };
+  }
 
   @Get('redirect')
   @UseGuards(DiscordAuthGuard)
   redirect(@Res() res: Response) {
     res.redirect(process.env.BOT_FRONTEND_HOST);
+    return { status: 'ok' };
   }
 
   @Get('status')
@@ -26,6 +29,12 @@ export class AuthController {
   @Get('logout')
   @UseGuards(AuthenticatedGuard)
   logout(@Req() req: Request) {
-    req.logout();
+    req.session.destroy(() => {
+      console.log('Session destroyed');
+      // req.logOut(() => {
+      //   console.log('logged out callback')
+      // });
+      return { status: 'ok' };
+    });
   }
 }

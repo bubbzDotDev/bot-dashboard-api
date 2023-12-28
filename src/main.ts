@@ -37,9 +37,11 @@ async function bootstrap() {
 
   try {
     await app.listen(process.env.PORT);
-    console.log(`Running on PORT ${process.env.PORT}.`);
+    console.log(`Using port ${process.env.PORT}.`);
   } catch (err) {
     console.log(err);
   }
 }
-bootstrap();
+bootstrap().then(() => {
+  console.log('App is running.');
+});

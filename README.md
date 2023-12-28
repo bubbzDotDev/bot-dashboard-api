@@ -12,6 +12,7 @@ $ npm install
 ```bash
 # Server Settings
 PORT=
+(Locally, it will be 3001)
 
 # Session/Cookie Settings
 COOKIE_SECRET=
@@ -20,6 +21,7 @@ COOKIE_SECRET=
 DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 DISCORD_REDIRECT_URL=
+(Locally, it will be http://localhost:3001/api/auth/redirect)
 DISCORD_BOT_TOKEN=
 
 # MySQL Server Settings
@@ -32,6 +34,7 @@ MYSQL_DB_SYNCHRONIZE=  #true in development; false in production
 
 # Frontend
 BOT_FRONTEND_HOST=
+(Locally, it will be http://localhost:5173)
 
 #Encryption
 PASSWORD=

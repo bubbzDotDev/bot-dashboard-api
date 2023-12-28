@@ -19,8 +19,8 @@ export class DiscordService implements IDiscordService {
   }
 
   async getGuilds(accessToken: string) {
-    const { data: userGuilds } = await this.getUserGuilds(accessToken);
-    const { data: botGuilds } = await this.getBotGuilds();
+    const userGuilds = await this.getUserGuilds(accessToken);
+    const botGuilds = await this.getBotGuilds();
     const adminUserGuilds = userGuilds.filter(
       ({ permissions }) => (parseInt(permissions) & 0x8) === 0x8,
     );

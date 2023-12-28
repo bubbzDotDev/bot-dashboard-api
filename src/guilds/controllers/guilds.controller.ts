@@ -58,5 +58,6 @@ export class GuildsController {
   @Post(':guildId/announce')
   sendAnnouncement(@Body('payload') payload: object) {
     this.wsHandler.announce(payload);
+    return { status: 'ok' };
   }
 }

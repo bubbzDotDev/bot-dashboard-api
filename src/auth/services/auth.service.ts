@@ -20,8 +20,7 @@ export class AuthService implements IAuthService {
       decryptedUser.refreshToken = await decryptText(user.refreshToken);
       decryptedUser.username = await decryptText(user.username);
       decryptedUser.discriminator = await decryptText(user.discriminator);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { discordId, ...updatedDetails } = decryptedUser;
+      const { ...updatedDetails } = decryptedUser;
       return this.userService.updateUser(user, updatedDetails);
     }
     return this.userService.createUser(details);

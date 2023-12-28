@@ -27,7 +27,6 @@ import { WebSocketModule } from './websocket/websocket.module';
       ssl: {
         rejectUnauthorized: true,
       },
-      dropSchema: true,
     }),
     AuthModule,
     UserModule,
